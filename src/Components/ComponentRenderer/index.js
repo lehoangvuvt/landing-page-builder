@@ -1,10 +1,12 @@
+import { useEffect } from "react";
 import { types } from "../../App";
 import Banner from "../Banner";
 import TextImage from "../TextImage";
 import Video from "../Video";
 import './style.scss';
 
-const ComponentRenderer = ({ item, onRemove, onUp, onDown, isAdmin }) => {
+const ComponentRenderer = ({ item, onRemove, onUp, onDown, isAdmin, isOpen }) => {
+    
   const remove = () => {
     onRemove(item.id);
   };
@@ -33,7 +35,7 @@ const ComponentRenderer = ({ item, onRemove, onUp, onDown, isAdmin }) => {
     return renderedComponent;
   };
   return (
-    <div style={{ borderBottom: isAdmin ? '1px solid rgba(0,0,0,0.1)' : 'none' }} className='container'>
+    <div style={{ width: isOpen && isAdmin ? '85%' : '100%', left: isOpen && isAdmin ? '15%' : '0%' }} className='container'>
       {getRenderType()}
       {isAdmin &&
       <div className='tools-container'>

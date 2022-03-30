@@ -1,4 +1,28 @@
-html, body{
-    padding: 0px;
-    margin: 0px;
+html,
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
+.save-btn {
+  background-color: #0099ff;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 101;
+  width: 120px;
+  height: 40px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  font-size: 14px;
+  cursor: pointer;
+  filter: brightness(80%);
+  &:hover {
+    filter: brightness(100%);
+  }
 }

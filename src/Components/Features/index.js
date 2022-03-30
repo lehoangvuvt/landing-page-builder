@@ -9,7 +9,7 @@ const Features = () => {
             <p className='title'>NMB48</p>
             <p className='sub-title'>Digital Gallery Market</p>
             <p className='text'>Purchase various digital contents such as digital trading cards at the dedicated market!</p>
-          <Button onClick={() => {}} className='btn'>Buy now</Button>
+          <Button onClick={() => { alert(true) }} className='btn'>Buy now</Button>
         </div>
         <div data-aos='fade-left' className='right-side'>
           <div className='phone-nft-market-container'>

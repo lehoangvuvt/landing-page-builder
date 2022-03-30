@@ -5,6 +5,7 @@ import Banner from "./Components/Banner";
 import Video from "./Components/Video";
 import ComponentRenderer from "./Components/ComponentRenderer";
 import Features from "./Components/Features";
+import Panel from "./Components/Panel";
 
 export const types = {
   BANNER: "BANNER",
@@ -15,6 +16,8 @@ export const types = {
 const initData = [];
 
 const App = () => {
+  const [isOpen, setOpen] = useState(true)
+  const [isMobileMode, setMobileMode] = useState(false)
   const isAdmin = true;
   const [items, setItems] = useState(initData);
   const [bannerImg, setBannerImg] = useState("");
@@ -27,36 +30,6 @@ const App = () => {
       setItems(savedItems);
     }
   }, []);
-
-  const addNewBanner = () => {
-    const newBanner = {
-      type: types.BANNER,
-      id: items.length > 0 ? items[items.length - 1].id + 1 : 0,
-      content: bannerImg,
-    };
-    setItems((oldArr) => [...oldArr, newBanner]);
-    setBannerImg("");
-  };
-
-  const addNewTextImg = () => {
-    const newBanner = {
-      type: types.TEXT_IMAGE,
-      id: items.length > 0 ? items[items.length - 1].id + 1 : 0,
-      content: textImg,
-    };
-    setItems((oldArr) => [...oldArr, newBanner]);
-    setTextImg("");
-  };
-
-  const addNewVideo = () => {
-    const newVideo = {
-      type: types.VIDEO,
-      id: items.length > 0 ? items[items.length - 1].id + 1 : 0,
-      content: videoSrc,
-    };
-    setItems((oldArr) => [...oldArr, newVideo]);
-    setVideoSrc("");
-  };
 
   const onRemove = (id) => {
     setItems(items.filter((item) => item.id !== id));
@@ -88,64 +61,31 @@ const App = () => {
     setItems(newOrderItems);
   };
 
+  const onClose = () => {
+    setOpen(false)
+  }
+  
+  const onOpen = () => {
+    setOpen(true)
+  }
+
   const save = () => {
     localStorage.setItem("ITEMS", JSON.stringify(items));
+    alert('saved');
   };
 
+  const onSwitchMode = () => {
+    setMobileMode(!isMobileMode)
+  }
+
   return (
-    <>
-    {isAdmin &&
-      <>
-        <input
-          type="text"
-          value={bannerImg}
-          onChange={(e) => {
-            setBannerImg(e.target.value);
-          }}
-        />
-        <button
-          onClick={() => {
-            addNewBanner();
-          }}
-        >
-          Add new banner
-        </button>
-        &nbsp;&nbsp;
-        <input
-          type="text"
-          value={videoSrc}
-          onChange={(e) => {
-            setVideoSrc(e.target.value);
-          }}
-        />
-        <button
-          onClick={() => {
-            addNewVideo();
-          }}
-        >
-          Add new video
-        </button>
-        &nbsp;&nbsp;
-        <input
-          type="text"
-          value={textImg}
-          onChange={(e) => {
-            setTextImg(e.target.value);
-          }}
-        />
-        <button
-          onClick={() => {
-            addNewTextImg();
-          }}
-        >
-          Add new text image
-        </button>
-        <br />
-        <br />
-      </>}
+    <div style={{ width: isMobileMode ? '768px': '100%'}}>
+    {isAdmin && <Panel isOpen={isOpen} onClose={onClose} onOpen={onOpen} items={items} setItems={setItems} isMobileMode={isMobileMode} onSwitchMode={onSwitchMode} />}
       {items?.length > 0 &&
         items.map((item) => (
           <ComponentRenderer
+            isOpen={isOpen}
+            isMobileMode={isMobileMode}
             key={item.id}
             item={item}
             onRemove={onRemove}
@@ -154,18 +94,18 @@ const App = () => {
             isAdmin={isAdmin}
           />
         ))}
-        <Features />
+        {/* <Features /> */}
       <br />
       {isAdmin && (
-        <button
+        <button className='save-btn'
           onClick={() => {
             save();
           }}
         >
           Save
         </button>
-      )}]
-    </>
+      )}
+    </div>
   );
 };
 

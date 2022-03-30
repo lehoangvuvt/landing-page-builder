@@ -1,16 +1,20 @@
 .container {
   position: relative;
   box-sizing: border-box;
+  transition: all 0.2s ease;
   .tools-container {
     position: absolute;
-    top: 0;
-    width: 100%;
+    top: 90%;
+    left: 0.5%;
+    width: 90%;
     display: flex;
     flex-flow: row wrap;
     gap: 5px;
     margin-top: 10px;
     padding-left: 10px;
     box-sizing: border-box;
+    align-items: center;
+    justify-content: flex-start;
     button{
         border:none;
         outline: none;
