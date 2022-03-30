@@ -11,13 +11,14 @@ export const types = {
   BANNER: "BANNER",
   VIDEO: "VIDEO",
   TEXT_IMAGE: "TEXT_IMAGE",
+  FEATURE: "FEATURE",
 };
 
 const initData = [];
 
 const App = () => {
-  const [isOpen, setOpen] = useState(true)
-  const [isMobileMode, setMobileMode] = useState(false)
+  const [isOpen, setOpen] = useState(true);
+  const [isMobileMode, setMobileMode] = useState(false);
   const isAdmin = true;
   const [items, setItems] = useState(initData);
   const [bannerImg, setBannerImg] = useState("");
@@ -62,25 +63,35 @@ const App = () => {
   };
 
   const onClose = () => {
-    setOpen(false)
-  }
-  
+    setOpen(false);
+  };
+
   const onOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const save = () => {
     localStorage.setItem("ITEMS", JSON.stringify(items));
-    alert('saved');
+    alert("saved");
   };
 
   const onSwitchMode = () => {
-    setMobileMode(!isMobileMode)
-  }
+    setMobileMode(!isMobileMode);
+  };
 
   return (
-    <div style={{ width: isMobileMode ? '768px': '100%'}}>
-    {isAdmin && <Panel isOpen={isOpen} onClose={onClose} onOpen={onOpen} items={items} setItems={setItems} isMobileMode={isMobileMode} onSwitchMode={onSwitchMode} />}
+    <div style={{ width: isMobileMode ? "768px" : "100%" }}>
+      {isAdmin && (
+        <Panel
+          isOpen={isOpen}
+          onClose={onClose}
+          onOpen={onOpen}
+          items={items}
+          setItems={setItems}
+          isMobileMode={isMobileMode}
+          onSwitchMode={onSwitchMode}
+        />
+      )}
       {items?.length > 0 &&
         items.map((item) => (
           <ComponentRenderer
@@ -94,10 +105,22 @@ const App = () => {
             isAdmin={isAdmin}
           />
         ))}
-        {/* <Features /> */}
+      <Features
+        title="NMB48"
+        subTitle="Sub title"
+        text="asd"
+        buttonText="Buy now"
+        listTitle="Features"
+        listItems={[{ text: "1" }, { text: "2" }]}
+        overlayBG={'red'}
+        featureImg={'https://testnmb.w3w.app/_next/static/images/nft-market-3f641879b5f13b8e92d771f342abf2b6.png'}
+        isOpen={isOpen}
+        isAdmin={isAdmin}
+      />
       <br />
       {isAdmin && (
-        <button className='save-btn'
+        <button
+          className="save-btn"
           onClick={() => {
             save();
           }}

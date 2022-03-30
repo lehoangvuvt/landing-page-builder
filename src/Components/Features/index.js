@@ -1,29 +1,25 @@
 import { Button } from "antd"
 import './style.scss'
 
-const Features = () => {
+const Features = ({ title, subTitle, text, buttonText, featureImg, listTitle, listItems, overlayBG, isOpen, isAdmin }) => {
     return(
-        <div className='features-container'>
-        <div className='background-overlay' />
+        <div style={{ width: isOpen && isAdmin ? '85%' : '100%', left: isOpen && isAdmin ? '15%' : '0%' }} className='features-container'>
+        <div style={{ background: overlayBG }} className='background-overlay' />
         <div className='left-side'>
-            <p className='title'>NMB48</p>
-            <p className='sub-title'>Digital Gallery Market</p>
-            <p className='text'>Purchase various digital contents such as digital trading cards at the dedicated market!</p>
-          <Button onClick={() => { alert(true) }} className='btn'>Buy now</Button>
+            <p className='title'>{title}</p>
+            <p className='sub-title'>{subTitle}</p>
+            <p className='text'>{text}</p>
+          <Button onClick={() => { alert(true) }} className='btn'>{buttonText}</Button>
         </div>
         <div data-aos='fade-left' className='right-side'>
           <div className='phone-nft-market-container'>
-            <img src='https://testnmb.w3w.app/_next/static/images/nft-market-3f641879b5f13b8e92d771f342abf2b6.png' />
+            <img src={featureImg} />
             <div className='features'>
-              <p style={{ marginLeft: '-15px' }} className='title'>Features</p>
+              <p style={{ marginLeft: '-15px' }} className='title'>{listTitle}</p>
               <ul>
-                <li>Entry</li>
-                <li>Nft shop</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
+                {listItems.map((item, i) =>
+                  <li key={i}>{item.text}</li>
+                )}
               </ul>
             </div>
           </div>
