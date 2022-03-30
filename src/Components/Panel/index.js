@@ -79,10 +79,10 @@ const Panel = ({ isOpen, onClose, onOpen, items, setItems }) => {
           </button>
         </div>
         <input
-          type="file"
+          type="text"
+          value={bannerImg}
           onChange={(e) => {
-            console.log(e.target.files[0]);
-            setBannerImg(e.target.files[0]);
+            setBannerImg(e.target.value);
           }}
         />
         <button
