@@ -26,7 +26,7 @@ const App = () => {
   const [textImg, setTextImg] = useState("");
   const [videoSrc, setVideoSrc] = useState("");
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
-  const [isOpenMenu, setOpenMenu] = useState(false);
+  const [isOpenMenu, setOpenMenu] = useState(true);
 
   const handleContextMenu = useCallback(
     (event) => {
@@ -98,6 +98,15 @@ const App = () => {
     setMobileMode(!isMobileMode);
   };
 
+  const addNewBanner = () => {
+    const newBanner = {
+      type: types.BANNER,
+      id: items.length > 0 ? items[items.length - 1].id + 1 : 0,
+      content: 'https://www.madeireiraestrela.com.br/images/joomlart/demo/default.jpg',
+    };
+    setItems((oldArr) => [...oldArr, newBanner]);
+  };
+
   return (
     <>
       {isAdmin && (
@@ -111,6 +120,7 @@ const App = () => {
           onSwitchMode={onSwitchMode}
         />
       )}
+      <div className='parent-container' ref={parentRef} style={{ width: isMobileMode ? "768px" : "100%" }}>
       {isOpenMenu && (
         <div
         className='menu'
@@ -119,10 +129,13 @@ const App = () => {
             left: anchorPoint.x,
           }}
         >
-          <h1>asd</h1>
+         <div onClick={() => { addNewBanner() }} className='item'>Add new banner</div>
+         <div className='item'>Add new banner</div>
+         <div className='item'>Add new banner</div>
+         <div className='item'>Add new banner</div>
+         <div className='item'>Add new banner</div>
         </div>
       )}
-      <div className='parent-container' ref={parentRef} style={{ width: isMobileMode ? "768px" : "100%" }}>
         {items?.length > 0 &&
           items.map((item) => (
             <ComponentRenderer

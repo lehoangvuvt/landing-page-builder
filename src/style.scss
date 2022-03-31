@@ -27,24 +27,28 @@ body {
   }
 }
 
-.menu {
-  font-size: 14px;
-  background-color: #fff;
-  border-radius: 2px;
-  padding: 5px 0 5px 0;
-  width: 150px;
-  height: auto;
-  margin: 0;
-/* use absolute positioning  */
-  position: absolute;
-  list-style: none;
-  box-shadow: 0 0 20px 0 #ccc;
-  opacity: 1;
-  transition: opacity 0.5s linear;
-  z-index: 110;
-}
-
 .parent-container{
   min-height: 100vh;
   background-color: red;
+  .menu {
+    z-index: 200;
+    position: absolute;
+    display: flex;
+    flex-flow: column wrap;
+    background-color: white;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    width: 200px;
+    border-radius: 6px;
+    .item{
+      height: 35px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      padding-left: 5px;
+      cursor: pointer;
+      &:hover{
+        background-color: rgba(0,0,0,0.2);
+      }
+    }
+  }
 }
