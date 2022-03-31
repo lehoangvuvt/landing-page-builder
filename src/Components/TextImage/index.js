@@ -13,7 +13,7 @@ const TextImage = ({ item, style }) => {
         padding: '20px 0px 20px 0px'
       }}
     >
-      <img alt="banner" style={{ maxWidth: '95%' }} src={item.content} />
+      <img alt="banner" style={{ maxWidth: '95%' }} src={item.content.src} />
     </div>
   );
 };

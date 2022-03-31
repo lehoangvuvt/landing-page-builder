@@ -7,7 +7,7 @@ const Video = ({ item }) => {
       <ReactPlayer
         loop
         className='video-wrapper'
-        url={item.content}
+        url={item.content.src}
         muted
         playing={true}
         controls={false}
