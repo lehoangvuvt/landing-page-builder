@@ -22,7 +22,7 @@ const ComponentRenderer = ({ item, onRemove, onUp, onDown, isAdmin, isOpen }) =>
       case types.BANNER:
         renderedComponent = <Banner onRemove={onRemove} item={item} />;
         break;
-      case types.TEXT_IMAGE:
+      case types.IMAGE:
         renderedComponent = <TextImage onRemove={onRemove} item={item} />;
         break;
       case types.VIDEO:
@@ -34,7 +34,7 @@ const ComponentRenderer = ({ item, onRemove, onUp, onDown, isAdmin, isOpen }) =>
     return renderedComponent;
   };
   return (
-    <div style={{ width: isOpen && isAdmin ? '85%' : '100%', left: isOpen && isAdmin ? '15%' : '0%' }} className='container'>
+    <div style={{ width: '100%' }} className='container'>
       {getRenderType()}
       {isAdmin &&
       <div className='tools-container'>

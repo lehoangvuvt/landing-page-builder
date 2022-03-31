@@ -29,7 +29,7 @@ body {
 
 .parent-container{
   min-height: 100vh;
-  background-color: red;
+  padding-bottom: 50vh;
   .menu {
     z-index: 200;
     position: absolute;
@@ -40,14 +40,14 @@ body {
     width: 200px;
     border-radius: 6px;
     .item{
-      height: 35px;
+      height: 40px;
       font-size: 15px;
       display: flex;
       align-items: center;
-      padding-left: 5px;
+      padding-left: 10px;
       cursor: pointer;
       &:hover{
-        background-color: rgba(0,0,0,0.2);
+        background-color: rgba(0,0,0,0.1);
       }
     }
   }

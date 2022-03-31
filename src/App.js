@@ -10,7 +10,7 @@ import Panel from "./Components/Panel";
 export const types = {
   BANNER: "BANNER",
   VIDEO: "VIDEO",
-  TEXT_IMAGE: "TEXT_IMAGE",
+  IMAGE: "IMAGE",
   FEATURE: "FEATURE",
 };
 
@@ -26,7 +26,7 @@ const App = () => {
   const [textImg, setTextImg] = useState("");
   const [videoSrc, setVideoSrc] = useState("");
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
-  const [isOpenMenu, setOpenMenu] = useState(true);
+  const [isOpenMenu, setOpenMenu] = useState(false);
 
   const handleContextMenu = useCallback(
     (event) => {
@@ -107,19 +107,26 @@ const App = () => {
     setItems((oldArr) => [...oldArr, newBanner]);
   };
 
+  const addNewImg = () => {
+    const newImage = {
+      type: types.IMAGE,
+      id: items.length > 0 ? items[items.length - 1].id + 1 : 0,
+      content: 'https://www.madeireiraestrela.com.br/images/joomlart/demo/default.jpg',
+    };
+    setItems((oldArr) => [...oldArr, newImage]);
+  };
+
+  const addNewVideo = () => {
+    const newVideo = {
+      type: types.VIDEO,
+      id: items.length > 0 ? items[items.length - 1].id + 1 : 0,
+      content: 'https://testnmb.w3w.app/_next/static/Assets/Video/LandingPage/nmb48.mp4',
+    };
+    setItems((oldArr) => [...oldArr, newVideo]);
+  };
+
   return (
     <>
-      {isAdmin && (
-        <Panel
-          isOpen={isOpen}
-          onClose={onClose}
-          onOpen={onOpen}
-          items={items}
-          setItems={setItems}
-          isMobileMode={isMobileMode}
-          onSwitchMode={onSwitchMode}
-        />
-      )}
       <div className='parent-container' ref={parentRef} style={{ width: isMobileMode ? "768px" : "100%" }}>
       {isOpenMenu && (
         <div
@@ -130,10 +137,8 @@ const App = () => {
           }}
         >
          <div onClick={() => { addNewBanner() }} className='item'>Add new banner</div>
-         <div className='item'>Add new banner</div>
-         <div className='item'>Add new banner</div>
-         <div className='item'>Add new banner</div>
-         <div className='item'>Add new banner</div>
+         <div onClick={() => { addNewImg() }} className='item'>Add new image</div>
+         <div onClick={() => { addNewVideo() }} className='item'>Add new video</div>
         </div>
       )}
         {items?.length > 0 &&
