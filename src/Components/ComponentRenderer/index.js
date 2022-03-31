@@ -17,7 +17,6 @@ const ComponentRenderer = ({ item, onRemove, onUp, onDown, isAdmin, isOpen }) =>
     onDown(item.id);
   };
   const getRenderType = () => {
-    console.log(item);
     let renderedComponent;
     switch (item.type) {
       case types.BANNER:

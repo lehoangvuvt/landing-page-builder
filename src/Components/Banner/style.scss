@@ -1,0 +1,16 @@
+.edit-banner-btn{
+    position: absolute;
+    z-index: 200;
+    right: 10px;
+    top: 20px;
+    width: 35px;
+    height: 35px;
+    background-color: white;
+    border-radius: 50%;
+    border:none;
+    cursor: pointer;
+    outline: none;
+    img{
+        width: 70%;
+    }
+}

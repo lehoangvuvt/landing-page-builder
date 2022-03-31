@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useCallback, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Banner from "./Components/Banner";
@@ -17,6 +17,7 @@ export const types = {
 const initData = [];
 
 const App = () => {
+  const parentRef = useRef();
   const [isOpen, setOpen] = useState(true);
   const [isMobileMode, setMobileMode] = useState(false);
   const isAdmin = true;
@@ -24,12 +25,30 @@ const App = () => {
   const [bannerImg, setBannerImg] = useState("");
   const [textImg, setTextImg] = useState("");
   const [videoSrc, setVideoSrc] = useState("");
+  const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
+  const [isOpenMenu, setOpenMenu] = useState(false);
+
+  const handleContextMenu = useCallback(
+    (event) => {
+      if(event.target.className === 'parent-container'){
+        event.preventDefault();
+        setAnchorPoint({ x: event.pageX, y: event.pageY });
+        setOpenMenu(true);
+      }
+    },
+    [setAnchorPoint, setOpenMenu]
+  );
 
   useEffect(() => {
     if (localStorage.getItem("ITEMS")) {
       const savedItems = JSON.parse(localStorage.getItem("ITEMS"));
       setItems(savedItems);
     }
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener('click', () => {
+      setAnchorPoint({ x: 0, y: 0 });
+      setOpenMenu(false);
+    });
   }, []);
 
   const onRemove = (id) => {
@@ -80,7 +99,7 @@ const App = () => {
   };
 
   return (
-    <div style={{ width: isMobileMode ? "768px" : "100%" }}>
+    <>
       {isAdmin && (
         <Panel
           isOpen={isOpen}
@@ -92,20 +111,32 @@ const App = () => {
           onSwitchMode={onSwitchMode}
         />
       )}
-      {items?.length > 0 &&
-        items.map((item) => (
-          <ComponentRenderer
-            isOpen={isOpen}
-            isMobileMode={isMobileMode}
-            key={item.id}
-            item={item}
-            onRemove={onRemove}
-            onUp={onUp}
-            onDown={onDown}
-            isAdmin={isAdmin}
-          />
-        ))}
-      <Features
+      {isOpenMenu && (
+        <div
+        className='menu'
+          style={{
+            top: anchorPoint.y,
+            left: anchorPoint.x,
+          }}
+        >
+          <h1>asd</h1>
+        </div>
+      )}
+      <div className='parent-container' ref={parentRef} style={{ width: isMobileMode ? "768px" : "100%" }}>
+        {items?.length > 0 &&
+          items.map((item) => (
+            <ComponentRenderer
+              isOpen={isOpen}
+              isMobileMode={isMobileMode}
+              key={item.id}
+              item={item}
+              onRemove={onRemove}
+              onUp={onUp}
+              onDown={onDown}
+              isAdmin={isAdmin}
+            />
+          ))}
+        {/* <Features
         title="NMB48"
         subTitle="Sub title"
         text="asd"
@@ -116,8 +147,9 @@ const App = () => {
         featureImg={'https://testnmb.w3w.app/_next/static/images/nft-market-3f641879b5f13b8e92d771f342abf2b6.png'}
         isOpen={isOpen}
         isAdmin={isAdmin}
-      />
-      <br />
+      /> */}
+        <br />
+      </div>
       {isAdmin && (
         <button
           className="save-btn"
@@ -128,7 +160,7 @@ const App = () => {
           Save
         </button>
       )}
-    </div>
+    </>
   );
 };
 
